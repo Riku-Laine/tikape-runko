@@ -3,4 +3,4 @@
 Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
 
 * Riku Laine
-* Eetu Hovila
+* Eetu Huovila
