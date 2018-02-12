@@ -4,3 +4,4 @@ Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
 
 * Riku Laine
 * Eetu Huovila
+* Viljami Latvala
