@@ -2,15 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Etusivu</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>Tervepä teille!</h1>
 
         <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
+        
+        <ul>
+            <li><p><a href="/drinkit">Tästä drinkkien listaukseen.</a></p></li>
+            <li><p><a href="/ainekset">Tästä raaka-aineiden listaukseen.</a></p></li>
+        </ul>
+        
     </body>
 </html>
