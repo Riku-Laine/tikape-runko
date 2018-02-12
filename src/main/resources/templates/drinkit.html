@@ -7,12 +7,29 @@
     </head>
 
     <body>
-        <h1>Hei opiskelijat!</h1>
+        <h1>Drinkit</h1>
 
-        <ol>
-            <li th:each="opiskelija: ${opiskelijat}">
-                <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
+        <ul>
+            <li th:each="drinkki : ${drinkit}">
+                <span th:text="${drinkki.name}">Task</span>
+                <form th:action="@{~/drinkki/{id}(id=${drinkki.id})}" method="post">
+                    <select name="drinkkiId">
+                        <option th:each="drinkki: ${drinkit}" th:value="${drinkki.id}" th:text="${drinkki.name}">
+                            user
+                        </option>
+                    </select>
+                    <input type="submit" value="Lisaa aines!"/>
+                </form>
             </li>
-        </ol>
+        </ul>
+
+        <h2>Add new task</h2>
+
+        <form method="POST" action="/drinkit">
+            <input type="text" name="name"/><br/>
+            <input type="submit" value="Lisaa drinkki!"/>
+        </form>
     </body>
+    
+    
 </html>
