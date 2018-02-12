@@ -8,11 +8,30 @@
 
     <body>
         <h1>Tervetuloa tarkastelemaan drinkkien raaka-aineita!</h1>
+        
+        <h1>Tasks</h1>
+<!-- Tässä listataan ainekset ja tarjotaan mahdollisuus niiden lisäämiseen.
+Koodi on kopio Materiaalin luvun 4.1 alusta.-->
+        <ul>
+            <li th:each="aines : ${ainekset}">
+                
+                <span th:text="${aines.nimi}">Aines</span> 
+            </li>
+        </ul>
 
+        <h2>Lisaa aines</h2>
+
+        <form method="POST" action="/ainekset">
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisaa valikoimaan!"/>
+        </form>
+        
+<!--Tässä alkuperäinen koodi vielä varmuuden vuoksi:
         <ol>
             <li th:each="opiskelija: ${opiskelijat}">
                 <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
             </li>
         </ol>
+-->
     </body>
 </html>
