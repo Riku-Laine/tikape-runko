@@ -24,7 +24,7 @@ public class DrinkkiDao implements Dao{
     @Override
     public Object findOne(Object key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Annos WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -43,7 +43,7 @@ public class DrinkkiDao implements Dao{
     @Override
     public List findAll() throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Annos");
 
         ResultSet rs = stmt.executeQuery();
         List<Drinkki> drinkit = new ArrayList<>();
@@ -64,7 +64,7 @@ public class DrinkkiDao implements Dao{
     @Override
     public void delete(Object key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Drinkki WHERE id = (?)");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Annos WHERE id = (?)");
         PreparedStatement stmt2 = connection.prepareStatement("DELETE FROM AnnosRaakaAine WHERE annos_id = (?)");
         stmt.setObject(1, key);
         stmt2.setObject(1, key);
