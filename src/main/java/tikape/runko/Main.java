@@ -6,6 +6,11 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.OpiskelijaDao;
+import tikape.runko.domain.RaakaAine;
+import tikape.runko.domain.RaakaAineDao;
+import tikape.runko.database.DrinkkiDao;
+import tikape.runko.domain.Drinkki;
+
 
 public class Main {
 
@@ -13,8 +18,9 @@ public class Main {
         Database database = new Database("jdbc:sqlite:target/drinkkilista.db");
         database.init();
 
-        OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
-
+        RaakaAineDao raakaAineDao = new RaakaAineDao(database);
+        DrinkkiDao drinkkiDao = new DrinkkiDao();      
+        
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viesti", "tervehdys");
@@ -26,16 +32,16 @@ public class Main {
 
         get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("ainekset", opiskelijaDao.findAll());
+            map.put("ainekset", raakaAineDao.findAll());
 
             return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());
 
-        get("/opiskelijat/:id", (req, res) -> {
+        get("/drinkit", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("opiskelija", opiskelijaDao.findOne(Integer.parseInt(req.params("id"))));
+            map.put("drinkit", drinkkiDao.findAll());
 
-            return new ModelAndView(map, "opiskelija");
+            return new ModelAndView(map, "drinkit");
         }, new ThymeleafTemplateEngine());
     }
 }
