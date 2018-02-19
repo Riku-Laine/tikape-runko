@@ -47,4 +47,23 @@ public class Database {
     }
 }
 //DATABASEN RAKENNE
-/* */
+/* 
+CREATE TABLE Drinkki (
+id integer PRIMARY KEY,
+nimi varchar(140)
+);
+CREATE TABLE RaakaAine (
+id integer PRIMARY KEY,
+nimi varchar(140)
+);
+CREATE TABLE DrinkkiRaakaAine (
+raaka_aine_id,
+drinkki_id,
+jarjestys varchar(256),
+maara varchar(40),
+ohje varchar(400),
+FOREIGN KEY (raaka_aine_id) REFERENCES RaakaAine(id),
+FOREIGN KEY (drinkki_id) REFERENCES Annos(id)
+);
+
+*/

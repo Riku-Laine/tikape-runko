@@ -1,6 +1,8 @@
 package tikape.runko;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -15,8 +17,7 @@ import tikape.runko.domain.Drinkki;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:target/drinkkilista.db");
-        database.init();
+        Database database = new Database("jdbc:sqlite:drinkkilista.db");
 
         RaakaAineDao raakaAineDao = new RaakaAineDao(database);
         DrinkkiDao drinkkiDao = new DrinkkiDao(database);      
@@ -32,6 +33,11 @@ public class Main {
 
         get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
+            List<RaakaAine> aineoliot = new ArrayList<>();
+            aineoliot = raakaAineDao.findAll();
+            for (RaakaAine raakaAine : aineoliot) {
+                System.out.println(raakaAine.toString());
+            }
             map.put("ainekset", raakaAineDao.findAll());
 
             return new ModelAndView(map, "ainekset");
