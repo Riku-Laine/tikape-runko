@@ -71,6 +71,10 @@ public class DrinkkiDao implements Dao{
 
         stmt.executeQuery();
         stmt2.executeQuery();
+        
+        stmt.close();
+        stmt2.close();
+        connection.close();
     }
     
 }
