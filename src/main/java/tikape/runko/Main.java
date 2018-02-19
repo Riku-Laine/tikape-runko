@@ -10,7 +10,7 @@ import tikape.runko.database.OpiskelijaDao;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:opiskelijat.db");
+        Database database = new Database("jdbc:sqlite:target/drinkkilista.db");
         database.init();
 
         OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
@@ -21,12 +21,14 @@ public class Main {
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
+        
+        
 
-        get("/opiskelijat", (req, res) -> {
+        get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("opiskelijat", opiskelijaDao.findAll());
+            map.put("ainekset", opiskelijaDao.findAll());
 
-            return new ModelAndView(map, "opiskelijat");
+            return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());
 
         get("/opiskelijat/:id", (req, res) -> {
