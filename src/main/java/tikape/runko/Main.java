@@ -7,7 +7,6 @@ import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
-import tikape.runko.database.OpiskelijaDao;
 import tikape.runko.domain.RaakaAine;
 import tikape.runko.domain.RaakaAineDao;
 import tikape.runko.database.DrinkkiDao;

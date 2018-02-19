@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.database.Database;
-import tikape.runko.domain.Opiskelija;
 import tikape.runko.database.Dao;
 
 public class RaakaAineDao implements Dao<RaakaAine,Integer> {
