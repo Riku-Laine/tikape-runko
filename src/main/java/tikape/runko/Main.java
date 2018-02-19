@@ -19,7 +19,7 @@ public class Main {
         database.init();
 
         RaakaAineDao raakaAineDao = new RaakaAineDao(database);
-        DrinkkiDao drinkkiDao = new DrinkkiDao();      
+        DrinkkiDao drinkkiDao = new DrinkkiDao(database);      
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();

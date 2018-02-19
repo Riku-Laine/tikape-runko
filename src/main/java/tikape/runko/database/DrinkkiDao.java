@@ -21,6 +21,9 @@ public class DrinkkiDao implements Dao{
     
     private Database database;
 
+    public DrinkkiDao(Database database){
+        this.database = database;
+    }
     @Override
     public Object findOne(Object key) throws SQLException {
         Connection connection = database.getConnection();
