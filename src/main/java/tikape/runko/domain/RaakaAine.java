@@ -15,7 +15,7 @@ public class RaakaAine {
     public String getNimi(){
         return this.nimi;
     }
-    public int getID(){
+    public int getId(){
         return this.id;
     }
     public void setID(int id){

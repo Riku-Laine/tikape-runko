@@ -23,15 +23,31 @@
             </li>
         </ul>
         
+
         
         
         
         <h2>Ohje</h2>
 
-        <form method="POST" action="/drinkki/{id}(id=${drinkki.id})/ohje">
-            <span>ohje:</span><br/>
-            <input type="text" name="ohje"/><br/>
-            <input type="submit" value="Lisaa ohje!"/>
+        
+
+        <h3>Lisää ainesosa:</h3>
+        
+        <form method="POST" action="/drinkki/:id">
+            <span>Drinkki:</span><br/>
+            <select name="id">
+                <option th:each="aines: ${ainekset}" th:value="${aines.id}" th:text="${aines.nimi}">
+                    aines
+                </option>
+            </select>
+            <input type="submit" value="Lisää aines"/>
+        </form>
+        
+        <h3>Lisää ohje drinkille</h3>
+        <form method="POST" action="/drinkki/{id}(id=${drinkki.id})/ohje" id="ohjeformid">
+            <span>Ohjeteksti:</span><br/>
+            <textarea form="ohjeformid" name="ohje" id="txtArea" rows="6" cols="70"></textarea><br/>
+            <input type="submit" value="Lisää ohjeteksti"/>
         </form>
 
     </body>
@@ -40,4 +56,12 @@
 <!-- Aineksien lisäämisen drinkkiin voisi tehdä soveltamalla menetelmää joka löytyy materiaalin luvusta 4.3. 
 Eli kaikki jo olemassa olevat ainekset listattaisiin drinkin alle ja siitä vois klikkaamalla valita aineksia.
 Ehkä yksinkertasempi tapa ois vaa antaa käyttäjän kirjottaa aineskenttään ja lisätä siitä samalla tietokantaan
-mikäli aines on uusi-->
+mikäli aines on uusi
+
+<form method="POST" action="/drinkki/{id}(id=${drinkki.id})/ohje">
+            <span>ohje:</span><br/>
+            <input type="text" name="ohje"/><br/>
+            <input type="submit" value="Lisaa ohje!"/>
+        </form>
+
+-->
