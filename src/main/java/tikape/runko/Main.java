@@ -72,6 +72,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         post("/ainekset", (req, res) -> {
+            System.out.println("!!");
             Connection conn = database.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO raakaaine (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("nimi"));
@@ -82,6 +83,19 @@ public class Main {
             
             res.redirect("/ainekset");
             return "";
+        });
+        
+        post("/drinkit", (req, res) -> {
+            Connection conn = database.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Annos (nimi) VALUES (?)");
+            stmt.setString(1, req.queryParams("nimi"));
+            stmt.executeUpdate();
+            
+            stmt.close();
+            conn.close();
+            
+            res.redirect("/drinkit");
+            return " ";
         });
     }
 }
