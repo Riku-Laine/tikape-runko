@@ -107,7 +107,7 @@ public class Main {
             
             stmt.close();
             conn.close();
-            res.redirect("/drinki/" + req.params(":id"));
+            res.redirect("/drinkki/" + req.params(":id"));
             return "";
         });
         

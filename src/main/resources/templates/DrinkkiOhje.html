@@ -24,7 +24,7 @@
         
         <h3>Lisää ainesosa:</h3>
         
-        <form method="POST" action="/drinkki/:id">
+        <form method="POST" action="{id}(id=${drinkki.id})">
             <span>Drinkki:</span><br/>
             <select name="id">
                 <option th:each="aines: ${ainekset}" th:value="${aines.id}" th:text="${aines.nimi}">
