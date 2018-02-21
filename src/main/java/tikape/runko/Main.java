@@ -33,12 +33,14 @@ public class Main {
 
         get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
-            List<RaakaAine> aineoliot = new ArrayList<>();
-            aineoliot = raakaAineDao.findAll();
+            List<RaakaAine> aineoliot = raakaAineDao.findAll();
+            List<String> esiintymiskerrat = raakaAineDao.getNumberOfOccurrences();
             for (RaakaAine raakaAine : aineoliot) {
                 System.out.println(raakaAine.toString());
+                System.out.println(esiintymiskerrat);
             }
             map.put("ainekset", raakaAineDao.findAll());
+            map.put("kerrat", esiintymiskerrat);
 
             return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());
