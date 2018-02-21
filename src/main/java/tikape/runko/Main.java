@@ -63,9 +63,14 @@ public class Main {
             while (rs.next()) {
                 raakaaineet.add(new RaakaAine(rs.getInt("id"), rs.getString("nimi")));
             }
-
+            
+            // Lisätään "lähtevään pakettiin" mukaan kaikki raaka-aineet, jotta
+            // ne saadaan mukaan valikkoon.
+            List<RaakaAine> kaikkiAineet = raakaAineDao.findAll();
+            
             map.put("ainekset", raakaaineet);
             map.put("drinkki", drinkkiDao.findOne(Integer.parseInt(req.params(":id"))));
+            map.put("kaikkiAineet", kaikkiAineet);
 
             return new ModelAndView(map, "DrinkkiOhje");
         }, new ThymeleafTemplateEngine());
@@ -122,7 +127,7 @@ public class Main {
             stmt.close();
             conn.close();
 
-            res.redirect("/drinkki/" + req.params(":id"));
+            res.redirect("/drinkki/:id");
             return "";
         });
 

@@ -23,31 +23,25 @@
             </li>
         </ul>
         
-
-        
-        
-        
         <h2>Ohje</h2>
-
-        
 
         <h3>Lisää ainesosa:</h3>
         
         <form method="POST" action="/drinkki/:id">
             <span>Drinkki:</span><br/>
             <select name="id">
-                <option th:each="aines: ${ainekset}" th:value="${aines.id}" th:text="${aines.nimi}">
+                <option th:each="viina: ${kaikkiAineet}" th:value="${viina.id}" th:text="${viina.nimi}">
                     aines
                 </option>
             </select>
-            <input type="submit" value="Lisää aines"/>
+            <input type="submit" value="Tallenna aines"/>
         </form>
         
         <h3>Lisää ohje drinkille</h3>
         <form method="POST" action="/drinkki/{id}(id=${drinkki.id})/ohje" id="ohjeformid">
             <span>Ohjeteksti:</span><br/>
             <textarea form="ohjeformid" name="ohje" id="txtArea" rows="6" cols="70"></textarea><br/>
-            <input type="submit" value="Lisää ohjeteksti"/>
+            <input type="submit" value="Tallenna ohjeteksti"/>
         </form>
 
     </body>
