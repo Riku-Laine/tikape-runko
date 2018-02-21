@@ -63,8 +63,39 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
 
         return ainekset;
     }
+    
+    
+    public List<String> getNumberOfOccurrences() throws SQLException{
+        Connection connection = database.getConnection();
+        
+        // Hae erikseen id ja laske sille sitten tuo countti
+        
+        
+        // Haetaan kaikki raaka-aineet
+        List<RaakaAine> raakaAineetListana = findAll();
+        List<String> esiintymiskerrat = new ArrayList<>();
+        
+        // Iteroidaan jokaisen raaka-aineen yli ja lasketaan kaikkien ilmestymiskerrat.
+        // Lisätään jokainen kokonaislukuarvo listaan, joka palautetaan käyttäjälle.
+        for(int i = 0; i < raakaAineetListana.size(); i++){
+            int raakaAineenId = raakaAineetListana.get(i).getId();
+            PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS esiintymiskertojenMaara "
+                + "FROM AnnosRaakaaine where raaka_aine_id = ?");
+            // Haetaan SQL:n avulla esiintymiskerrat, parsetaan tulos stringiksi
+            // ja palautetaan
+            stmt.setObject(1, raakaAineenId);
+            ResultSet rs = stmt.executeQuery();
+            esiintymiskerrat.add(raakaAineetListana.get(i).getNimi() + ", " + rs.getInt("esiintymiskertojenMaara") + " reseptissä");
+            rs.close();
+            stmt.close();
+        }
+        
+        connection.close();
 
-    @Override
+        return esiintymiskerrat;
+    }
+
+    @Override   
     public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE * FROM Raakaaine WHERE id = ?");

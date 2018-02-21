@@ -9,13 +9,13 @@
     <body>
         <h1>Tervetuloa tarkastelemaan drinkkien raaka-aineita!</h1>
         
-        <h1>Tasks</h1>
-<!-- Tässä listataan ainekset ja tarjotaan mahdollisuus niiden lisäämiseen.
+<!-- Tässä listataan ainekset niiden essintymiskertoineen ja tarjotaan mahdollisuus niiden lisäämiseen.
 Koodi on kopio Materiaalin luvun 4.1 alusta.-->
+
         <ul>
-            <li th:each="aines : ${ainekset}">
+            <li th:each="esiintymiskerrat : ${kerrat}">
                 
-                <span th:text="${aines.nimi}">Aines</span> 
+                <span th:text="${esiintymiskerrat}">Kerrat per aine</span> 
             </li>
         </ul>
 
