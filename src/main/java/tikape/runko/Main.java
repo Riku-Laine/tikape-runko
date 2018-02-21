@@ -6,6 +6,7 @@ import java.util.List;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import sun.security.util.Cache;
 import tikape.runko.database.Database;
 import tikape.runko.domain.RaakaAine;
 import tikape.runko.domain.RaakaAineDao;
@@ -47,6 +48,11 @@ public class Main {
             map.put("drinkit", drinkkiDao.findAll());
 
             return new ModelAndView(map, "drinkit");
+        }, new ThymeleafTemplateEngine());
+        
+        get("/drinkki/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "drinkki/:id");
         }, new ThymeleafTemplateEngine());
     }
 }
