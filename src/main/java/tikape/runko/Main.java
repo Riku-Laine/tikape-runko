@@ -97,5 +97,19 @@ public class Main {
             res.redirect("/drinkit");
             return " ";
         });
+        post("/drinkki/:id/ohje", (req, res) -> {
+            Connection conn = database.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Annos SET ohje= (?) WHERE annos.id= (?) ");
+            stmt.setString(1, req.queryParams("ohje"));
+            stmt.setString(2, req.params(":id"));
+            stmt.executeUpdate();
+            
+            stmt.close();
+            conn.close();
+            
+            
+            res.redirect("/drinkki/"+req.queryParams(":id"));
+            return " ";
+        });
     }
 }

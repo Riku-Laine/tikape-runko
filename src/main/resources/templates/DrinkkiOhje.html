@@ -12,6 +12,7 @@
 
     <body>
         <h1 th:text="${drinkki.nimi}">Name of the drink</h1>
+        
 
         <h2>Ainekset:</h2>
   
@@ -21,6 +22,17 @@
                 
             </li>
         </ul>
+        
+        
+        
+        
+        <h2>Ohje</h2>
+
+        <form method="POST" action="/drinkki/{id}(id=${drinkki.id})/ohje">
+            <span>ohje:</span><br/>
+            <input type="text" name="ohje"/><br/>
+            <input type="submit" value="Lisaa ohje!"/>
+        </form>
 
     </body>
 </html>

@@ -7,6 +7,7 @@ public class RaakaAine {
     private String nimi;
     private int id;
     
+    
     public RaakaAine(int id, String nimi){
         this.id = id;
         this.nimi = nimi;
