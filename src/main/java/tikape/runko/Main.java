@@ -1,5 +1,7 @@
 package tikape.runko;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,5 +56,18 @@ public class Main {
             HashMap map = new HashMap<>();
             return new ModelAndView(map, "drinkki/:id");
         }, new ThymeleafTemplateEngine());
+        
+        post("/ainekset", (req, res) -> {
+            Connection conn = database.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO raakaaine (nimi) VALUES (?)");
+            stmt.setString(1, req.queryParams("nimi"));
+            stmt.executeUpdate();
+            
+            stmt.close();
+            conn.close();
+            
+            res.redirect("/ainekset");
+            return "";
+        });
     }
 }
