@@ -97,5 +97,19 @@ public class Main {
             res.redirect("/drinkit");
             return " ";
         });
+        
+        post("/drinkki/:id", (req, res) -> {
+            Connection conn = database.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO AnnosRaakaAine (annos_id, raaka_aine_id) VALUES (?, ?)");
+            stmt.setInt(1, Integer.parseInt(req.params(":id")));
+            stmt.setInt(2, Integer.parseInt(req.queryParams("id")));
+            stmt.executeUpdate();
+            
+            stmt.close();
+            conn.close();
+            res.redirect("/drinki/" + req.params(":id"));
+            return "";
+        });
+        
     }
 }
