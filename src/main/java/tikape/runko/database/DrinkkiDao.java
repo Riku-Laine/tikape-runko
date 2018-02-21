@@ -35,11 +35,12 @@ public class DrinkkiDao implements Dao{
             return null;
         }
         
+        Drinkki drinkki = new Drinkki(rs.getInt("id"), rs.getString("nimi"));
         rs.close();
         stmt.close();
         connection.close();
         
-        return new Drinkki(rs.getInt("id"), rs.getString("nimi"));
+        return drinkki;
     }
 
     @Override

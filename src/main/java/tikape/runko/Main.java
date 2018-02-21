@@ -2,6 +2,7 @@ package tikape.runko;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +55,20 @@ public class Main {
         
         get("/drinkki/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            return new ModelAndView(map, "drinkki/:id");
+            Connection conn = database.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT raakaaine.id, raakaaine.nimi FROM raakaaine, AnnosRaakaAine WHERE annos_id = (?) AND raaka_aine_id = raakaaine.id");
+            stmt.setInt(1, Integer.parseInt(req.params(":id")));
+            ResultSet rs = stmt.executeQuery();
+            
+            ArrayList<RaakaAine> raakaaineet = new ArrayList<>();
+            while(rs.next()) {
+                raakaaineet.add(new RaakaAine(rs.getInt("id"), rs.getString("nimi")));
+            }
+            
+            map.put("ainekset", raakaaineet);
+            map.put("drinkki", drinkkiDao.findOne(Integer.parseInt(req.params(":id"))));
+            
+            return new ModelAndView(map, "DrinkkiOhje");
         }, new ThymeleafTemplateEngine());
         
         post("/ainekset", (req, res) -> {
