@@ -12,7 +12,7 @@
 Koodi on kopio Materiaalin luvun 4.4 lopusta.-->
         <ul>
             <li th:each="drinkki : ${drinkit}">
-                <a th:href="@{~/drinkki/{id}(id=${drinkki.id})}">
+                <a th:href="@{~/drinkit/{id}(id=${drinkki.id})}">
                     <span th:text="${drinkki.nimi}">Drinksu</span>
                 </a>
             </li>

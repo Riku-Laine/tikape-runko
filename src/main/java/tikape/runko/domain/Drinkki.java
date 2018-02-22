@@ -12,6 +12,14 @@ package tikape.runko.domain;
 public class Drinkki {
     private int id;
     private String nimi;
+    private String ohje;
+
+    public Drinkki(int id, String nimi, String ohje) {
+        this.id = id;
+        this.nimi = nimi;
+        this.ohje = ohje;
+    }
+
 
     public Drinkki(int id, String nimi) {
         this.id = id;
@@ -32,6 +40,14 @@ public class Drinkki {
 
     public void setNimi(String nimi) {
         this.nimi = nimi;
+    }
+    
+    public String getOhje() {
+        return ohje;
+    }
+
+    public void setOhje(String ohje) {
+        this.ohje = ohje;
     }
     
     

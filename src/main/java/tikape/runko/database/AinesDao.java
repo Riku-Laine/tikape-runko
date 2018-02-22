@@ -1,5 +1,9 @@
 
-package tikape.runko.domain;
+    
+
+
+
+package tikape.runko.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,19 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.database.Database;
 import tikape.runko.database.Dao;
+import tikape.runko.domain.Aines;
 
-public class RaakaAineDao implements Dao<RaakaAine,Integer> {
+public class AinesDao implements Dao<Aines,Integer> {
     
     private Database database;
 
-    public RaakaAineDao(Database database) {
+    public AinesDao(Database database) {
         this.database = database;
     }
 
     @Override
-    public RaakaAine findOne(Integer key) throws SQLException {
+    public Aines findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Raakaaine WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aines WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -33,7 +38,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
         Integer id = rs.getInt("id");
         String nimi = rs.getString("nimi");
 
-        RaakaAine r = new RaakaAine(id, nimi);
+        Aines r = new Aines(id, nimi);
 
         rs.close();
         stmt.close();
@@ -43,18 +48,18 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
     }
 
     @Override
-    public List<RaakaAine> findAll() throws SQLException {
+    public  List<Aines> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Raakaaine");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aines");
 
         ResultSet rs = stmt.executeQuery();
-        List<RaakaAine> ainekset = new ArrayList<>();
+        List<Aines> ainekset = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
 
-            ainekset.add(new RaakaAine(id, nimi));
+            ainekset.add(new Aines(id, nimi));
         }
 
         rs.close();
@@ -72,7 +77,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
         
         
         // Haetaan kaikki raaka-aineet
-        List<RaakaAine> raakaAineetListana = findAll();
+        List<Aines> raakaAineetListana = findAll();
         List<String> esiintymiskerrat = new ArrayList<>();
         
         // Iteroidaan jokaisen raaka-aineen yli ja lasketaan kaikkien ilmestymiskerrat.
@@ -80,7 +85,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
         for(int i = 0; i < raakaAineetListana.size(); i++){
             int raakaAineenId = raakaAineetListana.get(i).getId();
             PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS esiintymiskertojenMaara "
-                + "FROM AnnosRaakaaine where raaka_aine_id = ?");
+                + "FROM DrinkkiAines where Aines_id = ?");
             // Haetaan SQL:n avulla esiintymiskerrat, parsetaan tulos stringiksi
             // ja palautetaan
             stmt.setObject(1, raakaAineenId);
@@ -98,7 +103,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
     @Override   
     public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE * FROM Raakaaine WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("DELETE * FROM Aines WHERE id = ?");
         stmt.setObject(1, key);
         
         
@@ -108,4 +113,5 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer> {
 
 }
     
+
 

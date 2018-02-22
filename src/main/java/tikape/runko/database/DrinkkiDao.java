@@ -26,7 +26,7 @@ public class DrinkkiDao implements Dao{
     @Override
     public Object findOne(Object key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Annos WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -35,7 +35,7 @@ public class DrinkkiDao implements Dao{
             return null;
         }
         
-        Drinkki drinkki = new Drinkki(rs.getInt("id"), rs.getString("nimi"));
+        Drinkki drinkki = new Drinkki(rs.getInt("id"), rs.getString("nimi"), rs.getString("ohje"));
         rs.close();
         stmt.close();
         connection.close();
@@ -46,15 +46,16 @@ public class DrinkkiDao implements Dao{
     @Override
     public List findAll() throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Annos");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki");
 
         ResultSet rs = stmt.executeQuery();
         List<Drinkki> drinkit = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
+            String ohje = rs.getString("ohje");
 
-            drinkit.add(new Drinkki(id, nimi));
+            drinkit.add(new Drinkki(id, nimi, ohje));
         }
 
         rs.close();
@@ -67,8 +68,8 @@ public class DrinkkiDao implements Dao{
     @Override
     public void delete(Object key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Annos WHERE id = (?)");
-        PreparedStatement stmt2 = connection.prepareStatement("DELETE FROM AnnosRaakaAine WHERE annos_id = (?)");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Drinkki WHERE id = (?)");
+        PreparedStatement stmt2 = connection.prepareStatement("DELETE FROM DrinkkiAines WHERE annos_id = (?)");
         stmt.setObject(1, key);
         stmt2.setObject(1, key);
 
