@@ -126,7 +126,7 @@ public class Main {
 
         post("/drinkit/:id/ohje", (req, res) -> {
             Connection conn = database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE drinkki SET ohje = ' ? ' WHERE drinkki.id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE drinkki SET ohje = ? WHERE drinkki.id = ?");
             stmt.setString(1, req.queryParams("ohje"));
             stmt.setString(2, req.params(":id"));
             
