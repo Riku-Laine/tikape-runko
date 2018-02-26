@@ -41,10 +41,6 @@ public class Main {
             HashMap map = new HashMap<>();
             List<Aines> aineoliot = ainesDao.findAll();
             List<String> esiintymiskerrat = ainesDao.getNumberOfOccurrences();
-            for (Aines raakaAine : aineoliot) {
-                System.out.println(raakaAine.toString());
-                System.out.println(esiintymiskerrat);
-            }
             map.put("ainekset", ainesDao.findAll());
             map.put("kerrat", esiintymiskerrat);
 
