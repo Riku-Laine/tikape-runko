@@ -20,6 +20,7 @@
         <ul>
             <li th:each="aines : ${ainekset}">
                 <span th:text="${aines.nimi}">Aines</span>
+                ,
                 <span th:text="${aines.maara}">aineksen määrä</span>
                 
             </li>
@@ -36,12 +37,14 @@
         <h3>Lisää ainesosa:</h3>
         
         <form method="POST" th:action="@{~/drinkit/{id}(id=${drinkki.id})}">
-            <span>Drinkki:</span><br/>
+            <span>Ainesosa:</span><br/>
             <select name="id">
                 <option th:each="aines: ${kaikkiAinekset}" th:value="${aines.id}" th:text="${aines.nimi}">
                     aines
                 </option>
-            </select>
+            </select><br/>
+            <span>Määrä:</span><br/>
+            <input type="text" name="maara"/><br/>
             <input type="submit" value="Lisää aines"/>
         </form>
         
