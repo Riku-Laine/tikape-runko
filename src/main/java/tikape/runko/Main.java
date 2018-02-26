@@ -18,16 +18,22 @@ import tikape.runko.database.AinesDao;
 import tikape.runko.database.DrinkkiDao;
 import tikape.runko.domain.Drinkki;
 import java.util.Iterator;
+import spark.*;
 
 
 public class Main {
+    
+    
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {if (System.getenv("PORT") != null) {
+    Spark.port(Integer.valueOf(System.getenv("PORT")));
+    }
+        
         Database database = new Database("jdbc:sqlite:database.db");
 
         AinesDao ainesDao = new AinesDao(database);
         DrinkkiDao drinkkiDao = new DrinkkiDao(database);
-
+        
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viesti", "tervehdys");
