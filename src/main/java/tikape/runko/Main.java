@@ -17,6 +17,7 @@ import tikape.runko.domain.Aines;
 import tikape.runko.database.AinesDao;
 import tikape.runko.database.DrinkkiDao;
 import tikape.runko.domain.Drinkki;
+import java.util.Iterator;
 
 
 public class Main {
@@ -67,9 +68,24 @@ public class Main {
                 ainekset.add(new Aines(rs.getInt("id"), rs.getString("nimi"), rs.getString("määrä")));
             }
             
+            ArrayList<String>nimet = new ArrayList<>();
+            int i = 0;
+            while(i < ainekset.size()){
+                nimet.add(ainekset.get(i).getNimi().trim());
+                i++;
+            }
+            
             // Lisätään "lähtevään pakettiin" mukaan kaikki raaka-aineet, jotta
             // ne saadaan mukaan valikkoon.
             List<Aines> kaikkiAineet = ainesDao.findAll();
+            
+            Iterator<Aines>iteraattori = kaikkiAineet.iterator();
+           while(iteraattori.hasNext()){
+               Aines aines = iteraattori.next();
+               if(nimet.contains(aines.getNimi())){
+                   iteraattori.remove();
+               }
+           }
             
             map.put("ainekset", ainekset);
             map.put("drinkki", drinkkiDao.findOne(Integer.parseInt(req.params(":id"))));
