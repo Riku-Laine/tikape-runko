@@ -9,10 +9,15 @@ public class Database {
     private String databaseAddress;
 
     public Database(String databaseAddress) throws ClassNotFoundException {
+
         this.databaseAddress = databaseAddress;
     }
 
     public Connection getConnection() throws SQLException {
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        if (dbUrl != null && dbUrl.length() > 0) {
+            return DriverManager.getConnection(dbUrl);
+        }
         return DriverManager.getConnection(databaseAddress);
     }
 
@@ -46,24 +51,3 @@ public class Database {
         return lista;
     }
 }
-//DATABASEN RAKENNE
-/* 
-CREATE TABLE Drinkki (
-id integer PRIMARY KEY,
-nimi varchar(140)
-);
-CREATE TABLE RaakaAine (
-id integer PRIMARY KEY,
-nimi varchar(140)
-);
-CREATE TABLE DrinkkiRaakaAine (
-raaka_aine_id,
-drinkki_id,
-jarjestys varchar(256),
-maara varchar(40),
-ohje varchar(400),
-FOREIGN KEY (raaka_aine_id) REFERENCES RaakaAine(id),
-FOREIGN KEY (drinkki_id) REFERENCES Annos(id)
-);
-
-*/

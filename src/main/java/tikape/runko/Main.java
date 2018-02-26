@@ -1,5 +1,3 @@
-
-
 package tikape.runko;
 
 import java.sql.Connection;
@@ -20,20 +18,18 @@ import tikape.runko.domain.Drinkki;
 import java.util.Iterator;
 import spark.*;
 
-
 public class Main {
-    
-    
 
-    public static void main(String[] args) throws Exception {if (System.getenv("PORT") != null) {
-    Spark.port(Integer.valueOf(System.getenv("PORT")));
-    }
-        
+    public static void main(String[] args) throws Exception {
+        if (System.getenv("PORT") != null) {
+            Spark.port(Integer.valueOf(System.getenv("PORT")));
+        }
+
         Database database = new Database("jdbc:sqlite:database.db");
 
         AinesDao ainesDao = new AinesDao(database);
         DrinkkiDao drinkkiDao = new DrinkkiDao(database);
-        
+
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viesti", "tervehdys");
@@ -73,26 +69,26 @@ public class Main {
             while (rs.next()) {
                 ainekset.add(new Aines(rs.getInt("id"), rs.getString("nimi"), rs.getString("määrä")));
             }
-            
-            ArrayList<String>nimet = new ArrayList<>();
+
+            ArrayList<String> nimet = new ArrayList<>();
             int i = 0;
-            while(i < ainekset.size()){
+            while (i < ainekset.size()) {
                 nimet.add(ainekset.get(i).getNimi().trim());
                 i++;
             }
-            
+
             // Lisätään "lähtevään pakettiin" mukaan kaikki raaka-aineet, jotta
             // ne saadaan mukaan valikkoon.
             List<Aines> kaikkiAineet = ainesDao.findAll();
-            
-            Iterator<Aines>iteraattori = kaikkiAineet.iterator();
-           while(iteraattori.hasNext()){
-               Aines aines = iteraattori.next();
-               if(nimet.contains(aines.getNimi())){
-                   iteraattori.remove();
-               }
-           }
-            
+
+            Iterator<Aines> iteraattori = kaikkiAineet.iterator();
+            while (iteraattori.hasNext()) {
+                Aines aines = iteraattori.next();
+                if (nimet.contains(aines.getNimi())) {
+                    iteraattori.remove();
+                }
+            }
+
             map.put("ainekset", ainekset);
             map.put("drinkki", drinkkiDao.findOne(Integer.parseInt(req.params(":id"))));
             map.put("kaikkiAinekset", kaikkiAineet);
@@ -105,9 +101,9 @@ public class Main {
             Connection conn = database.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Aines (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("nimi"));
-            
-            if(req.queryParams("nimi").length() != 0) {
-            stmt.executeUpdate();
+
+            if (req.queryParams("nimi").length() != 0) {
+                stmt.executeUpdate();
             }
 
             stmt.close();
@@ -121,8 +117,8 @@ public class Main {
             Connection conn = database.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Drinkki (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("nimi"));
-            if(req.queryParams("nimi").length() != 0) {
-            stmt.executeUpdate();
+            if (req.queryParams("nimi").length() != 0) {
+                stmt.executeUpdate();
             }
 
             stmt.close();
@@ -153,18 +149,18 @@ public class Main {
             stmt.setInt(1, Integer.parseInt(req.params(":id")));
             stmt.setInt(2, Integer.parseInt(req.queryParams("id")));
             stmt.setString(3, req.queryParams("maara"));
-            
-            if(!req.queryParams("maara").isEmpty())
+
+            if (!req.queryParams("maara").isEmpty()) {
                 stmt.executeUpdate();
+            }
 
             stmt.close();
             conn.close();
-            
+
             res.redirect("/drinkit/" + req.params(":id"));
-            
+
             return "";
         });
 
     }
 }
-
