@@ -83,7 +83,10 @@ public class Main {
             Connection conn = database.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Aines (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("nimi"));
+            
+            if(req.queryParams("nimi").length() != 0) {
             stmt.executeUpdate();
+            }
 
             stmt.close();
             conn.close();
@@ -96,7 +99,9 @@ public class Main {
             Connection conn = database.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Drinkki (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("nimi"));
+            if(req.queryParams("nimi").length() != 0) {
             stmt.executeUpdate();
+            }
 
             stmt.close();
             conn.close();
