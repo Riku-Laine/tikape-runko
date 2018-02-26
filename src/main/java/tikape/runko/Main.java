@@ -58,13 +58,13 @@ public class Main {
         get("/drinkit/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             Connection conn = database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT Aines.id, Aines.nimi, Drinkki.ohje FROM Aines, DrinkkiAines, Drinkki WHERE Drinkki_id = (?) AND Aines_id = Aines.id AND Drinkki_id=Drinkki.id");
+            PreparedStatement stmt = conn.prepareStatement("SELECT Aines.id, Aines.nimi, Drinkki.ohje, DrinkkiAines.määrä FROM Aines, DrinkkiAines, Drinkki WHERE Drinkki_id = (?) AND Aines_id = Aines.id AND Drinkki_id=Drinkki.id");
             stmt.setInt(1, Integer.parseInt(req.params(":id")));
             ResultSet rs = stmt.executeQuery();
 
             ArrayList<Aines> ainekset = new ArrayList<>();
             while (rs.next()) {
-                ainekset.add(new Aines(rs.getInt("id"), rs.getString("nimi")));
+                ainekset.add(new Aines(rs.getInt("id"), rs.getString("nimi"), rs.getString("määrä")));
             }
             
             // Lisätään "lähtevään pakettiin" mukaan kaikki raaka-aineet, jotta
