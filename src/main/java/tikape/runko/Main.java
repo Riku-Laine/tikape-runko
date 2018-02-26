@@ -129,6 +129,8 @@ public class Main {
             PreparedStatement stmt = conn.prepareStatement("UPDATE drinkki SET ohje = ' ? ' WHERE drinkki.id = ?");
             stmt.setString(1, req.queryParams("ohje"));
             stmt.setString(2, req.params(":id"));
+            
+            System.out.println(stmt);
 
             stmt.executeUpdate();
             stmt.close();
