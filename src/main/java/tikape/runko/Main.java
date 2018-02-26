@@ -131,8 +131,9 @@ public class Main {
             stmt.setInt(1, Integer.parseInt(req.params(":id")));
             stmt.setInt(2, Integer.parseInt(req.queryParams("id")));
             stmt.setString(3, req.queryParams("maara"));
-
-            stmt.executeUpdate();
+            
+            if(!req.queryParams("maara").isEmpty())
+                stmt.executeUpdate();
 
             stmt.close();
             conn.close();
