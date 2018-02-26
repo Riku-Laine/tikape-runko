@@ -125,10 +125,12 @@ public class Main {
         });
 
         post("/drinkit/:id", (req, res) -> {
+            //toimii
             Connection conn = database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO DrinkkiAines (Drinkki_id, Aines_id) VALUES (?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO DrinkkiAines (Drinkki_id, Aines_id, määrä) VALUES (?, ?, ?)");
             stmt.setInt(1, Integer.parseInt(req.params(":id")));
             stmt.setInt(2, Integer.parseInt(req.queryParams("id")));
+            stmt.setString(3, req.queryParams("maara"));
 
             stmt.executeUpdate();
 
