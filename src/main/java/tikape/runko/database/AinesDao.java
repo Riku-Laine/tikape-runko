@@ -88,6 +88,7 @@ public class AinesDao implements Dao<Aines,Integer> {
             // ja palautetaan
             stmt.setObject(1, raakaAineenId);
             ResultSet rs = stmt.executeQuery();
+            rs.next();
             esiintymiskerrat.add(raakaAineetListana.get(i).getNimi() + ", " + rs.getInt("esiintymiskertojenMaara") + " reseptissä");
             rs.close();
             stmt.close();
