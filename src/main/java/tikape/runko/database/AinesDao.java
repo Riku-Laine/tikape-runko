@@ -71,14 +71,12 @@ public class AinesDao implements Dao<Aines,Integer> {
     
     
     public List<String> getNumberOfOccurrences() throws SQLException{
-        Connection connection = database.getConnection();
-        
         // Hae erikseen id ja laske sille sitten tuo countti
-        
-        
         // Haetaan kaikki raaka-aineet
         List<Aines> raakaAineetListana = findAll();
         List<String> esiintymiskerrat = new ArrayList<>();
+        
+        Connection connection = database.getConnection();
         
         // Iteroidaan jokaisen raaka-aineen yli ja lasketaan kaikkien ilmestymiskerrat.
         // Lisätään jokainen kokonaislukuarvo listaan, joka palautetaan käyttäjälle.
