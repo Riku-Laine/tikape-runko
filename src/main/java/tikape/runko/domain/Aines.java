@@ -23,6 +23,9 @@ public class Aines {
     public String getNimi(){
         return this.nimi;
     }
+    public String getMaara(){
+        return this.maara;
+    }
     public int getId(){
         return this.id;
     }
